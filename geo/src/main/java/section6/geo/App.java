@@ -1,9 +1,10 @@
 package section6.geo;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -54,14 +55,20 @@ public class App
 	}
     public static void main( String[] args )
     {
+    
     	
-    	GeocoderResponse geocoderResponse = getGeocoderResponse("-27.466","153.033");
+    	GeocoderResponse geocoderResponse = getGeocoderResponse("-36.973148","174.854659");
 		System.out.println(geocoderResponse.getAbbreviation());
     	
-    	long utcTime = 1460059952 + Long.valueOf(geocoderResponse.getGmtOffset());
+    	long utcTime = 1556883825000L;
     	
-    	Date d = new Date(utcTime);
-    	System.out.println(d);
+    	Date date = new Date(utcTime);
+    	System.out.println(date);
+    	
+    	final SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm z Z");
+    	
+    	f.setTimeZone(TimeZone.getTimeZone(geocoderResponse.getZoneName()));
+		System.out.println(f.format(date));
     	
     	
         
